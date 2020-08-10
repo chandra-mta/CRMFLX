@@ -7,7 +7,7 @@
 #                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                           #
 #                                                                               #
-#           last upate: Jul 02, 2020                                            #
+#           last upate: Aug 20, 2020                                            #
 #                                                                               #
 #           baseed on Robert Cameron's crmflx.f (2001)                          #
 #                                                                               #
@@ -1736,7 +1736,7 @@ def  flxdat1_map(double xgsm,double ygsm,double zgsm,\
 #
 #-- give extra margin on rngchk so that most of the neighbors are included
 #
-    rngchk2 = 1.02 * rngchk
+    rngchk2 = 1.20 * rngchk
 
     for n in range(0, nsphvol):
         i = indx + ioffset[n]
