@@ -1,0 +1,33 @@
+# pyproject.toml takes precedence over setup.py for defining the build system and project metadata.
+# setup.py should only be relied on for special scripting behavior, such as building C extensions
+
+[build-system]
+requires = ["setuptools", "cython"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crmflx"
+authors = [
+    {name = "Robert Cameron"},
+    {name = "Takashi Isobe", email = "tisobe@cfa.harvard.edu"},
+    {name = "Lina Pulgarin-Duque", email = "lina.pulgarin-duque@cfa.harvard.edu"},
+    {name = "William Aaron", email = "william.aaron@cfa.harvard.edu"},
+]
+description = "Python Package for computing the Chandra Radiation Model."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+version = "0.0.1"
+requires-python = ">=3.8"
+dependencies = [
+    "importlib"
+]
+
+[tool.setuptools]
+# Default behavior when using pyproject.toml to configure build
+# include-package-data = true
+# packages.find.namespaces = true
+
+include-package-data = true
+package-data = {"crmflx._model_data" = ["*.asc"] }
+packages.find = {where = ["src"], namespaces = true}
