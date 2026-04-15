@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta4/Script/Python3.8/envs/ska3-shiny/bin/python 
 # cython: profile=True
 
 #################################################################################
@@ -7,7 +7,7 @@
 #                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                           #
 #                                                                               #
-#           last upate: Aug 20, 2020                                            #
+#           last upate: Mar 22, 2021                                            #
 #                                                                               #
 #           baseed on Robert Cameron's crmflx.f (2001)                          #
 #                                                                               #
@@ -40,7 +40,7 @@ for ent in data:
 #
 #--- append  pathes to private folders to a python directory
 #
-sys.path.append('/data/mta/Script/Python3.6/MTA/')
+sys.path.append('/data/mta/Script/Python3.8/MTA/')
 #
 #--- import several functions
 #
