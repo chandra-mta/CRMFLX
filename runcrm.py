@@ -1,4 +1,4 @@
-#!/usr/bin/env /data/mta/Script/Python3.6/envs/ska3/bin/python
+#!/usr/bin/env /data/mta4/Script/Python3.8/envs/ska3-shiny/bin/python
 
 #################################################################################
 #                                                                               #
@@ -6,7 +6,7 @@
 #                                                                               #
 #           author: t. isobe (tisobe@cfa.harvard.edu)                           #
 #                                                                               #
-#           last upate: Jul 02, 2020                                            #
+#           last upate: Mar 22, 2021                                            #
 #                                                                               #
 #       converted from Robert Cameron's runcrm.f (2002)                         #
 #                                                                               #
@@ -33,7 +33,7 @@ for ent in data:
 #
 #--- append  pathes to private folders to a python directory
 #
-sys.path.append('/data/mta/Script/Python3.6/MTA/')
+sys.path.append('/data/mta/Script/Python3.8/MTA/')
 sys.path.append('/data/mta4/Space_Weather/CRMFLX/CRMFLX_PYTHON/')
 #
 #--- import several functions

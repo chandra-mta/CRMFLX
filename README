@@ -15,7 +15,7 @@ The script to call crmfxl.pyx and creates data tables of
     input: a file name of Chandra Ephemeris
                 default: <ephem_dir>Data/PE.EPH.gsme_in_Re_short
 
-    output: <crm3_dir>/Data/CRM_p.dat<##>
+    output: <crm3_dir>/Data/CRM_p.da<##>
 
 
 crmflx.pyx
@@ -52,9 +52,9 @@ These files keep the model values for given kp values. The original data files
 
 setup.py
 ========
-The script to compile python script. This must be run before using the scripts.
+The script to compile python script.
 
-    /data/mta/Script/Python3.6/envs/ska3/bin/python setup.py build_ext --in place
+    /data/mta4/Script/Python3.8/envs/ska3-shiny/bin/python setup.py build_ext --inplace
     This will creates:
         * build/
         * crmflx.c
