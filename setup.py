@@ -6,7 +6,7 @@ from Cython.Build import cythonize
 #: cythonize build path config. Must specify twice.
 
 extensions = [
-    Extension("crmflx.crmflx", ["src/crmflx/crmflx.pyx"])
+    Extension("crmflx.core", ["src/crmflx/core.pyx"])
 ]
 
 setup(
