@@ -31,3 +31,10 @@ dependencies = [
 include-package-data = true
 package-data = {"crmflx._model_data" = ["*.asc"] }
 packages.find = {where = ["src"], namespaces = true}
+
+[tool.pytest]
+addopts = ["--import-mode=importlib"]
+# Add the directory containing your package (e.g., 'src' or '.') to the python path
+pythonpath = ["src"]
+# Optionally define where pytest should look for tests
+testpaths = ["tests"]
