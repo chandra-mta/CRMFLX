@@ -21,3 +21,16 @@ def test_model_data(solwin_model):
     for k in range(9):
         for f in flxbin[k]:
             assert f >= 0.0  #: Flux should be non-negative
+
+def test_index_offset(index_offset):
+    nsphvol3 = index_offset['nsphvol3']
+    ioffset3 = index_offset['ioffset3']
+    joffset3 = index_offset['joffset3']
+    koffset3 = index_offset['koffset3']
+
+    assert ioffset3.dtype == int
+    assert joffset3.dtype == int
+    assert koffset3.dtype == int
+    assert len(ioffset3) == nsphvol3
+    assert len(joffset3) == nsphvol3
+    assert len(koffset3) == nsphvol3

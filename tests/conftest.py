@@ -1,5 +1,5 @@
 import pytest
-from src.crmflx._read_model import load_model
+from src.crmflx._read_model import load_index_offset, load_model
 
 @pytest.fixture
 def solwin_model():
@@ -12,3 +12,7 @@ def msheath_model():
 @pytest.fixture
 def msph_model():
     return load_model("msph")
+
+@pytest.fixture
+def index_offset():
+    return load_index_offset()
