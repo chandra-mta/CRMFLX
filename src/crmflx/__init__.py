@@ -1,1 +1,1 @@
-from .core import *
+from ._read_model import *

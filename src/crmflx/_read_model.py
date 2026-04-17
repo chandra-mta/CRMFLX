@@ -7,6 +7,8 @@ MAXNUM = 65 #: MAXIMUM NUMBER OF VOLUME ELEMENTS ALONG AN AXIS USED IN DATAFILE
 
 _RESOURCES = files(_model_data)
 
+__all__ = ["load_model"]
+
 def _parse_data_file(model_name):
     """read input ascii file and initialize the numpy datarrays
 
@@ -26,9 +28,9 @@ def load_model(model, calc_imapindx=False):
             zflux   --- array of arrays of containing the z-coordinate of each data cell's center (re)
             flxbin  --- array of arrays of the average ion flux within each cell  (ions/[cm^2-sec-sr-mev])
             numbin  --- array of arrays of the number of non-zero values within each cell
-            Note: sub arrays have different length and you cannot apply noraml numpy operation
+            Note: sub arrays have different length and you cannot apply normal numpy operation
             numdat  --- number of non-zero values in the database
-            imapindx--- array of pointers to flux database (if iset ==), this is not created)
+            imapindx--- array of pointers to flux database
     """
     data = _parse_data_file(model)
     xflux  = []
@@ -89,18 +91,7 @@ def load_model(model, calc_imapindx=False):
     numbin  = np.array([np.array(xi).astype(int) for xi in numbin], dtype=object)
     numdat  = np.array(numdat, dtype=int)
 
-    if calc_imapindx:
-        _dict = {
-            'xflux': xflux,
-            'yflux': yflux,
-            'zflux': zflux,
-            'flxbin': flxbin,
-            'numbin': numbin,
-            'numdat': numdat,
-            'imapindx': imapindx
-            }
-    else:
-        _dict = {
+    _dict = {
             'xflux': xflux,
             'yflux': yflux,
             'zflux': zflux,
@@ -108,4 +99,6 @@ def load_model(model, calc_imapindx=False):
             'numbin': numbin,
             'numdat': numdat
             }
+    if calc_imapindx:
+        _dict['imapindx'] = imapindx
     return _dict
