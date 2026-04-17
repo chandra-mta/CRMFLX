@@ -1,4 +1,5 @@
 import numpy as np
+import json
 from importlib.resources import files, as_file
 from . import _model_data
 
@@ -7,7 +8,7 @@ MAXNUM = 65 #: MAXIMUM NUMBER OF VOLUME ELEMENTS ALONG AN AXIS USED IN DATAFILE
 
 _RESOURCES = files(_model_data)
 
-__all__ = ["load_model"]
+__all__ = ["load_model", "load_index_offset"]
 
 def _parse_data_file(model_name):
     """read input ascii file and initialize the numpy datarrays
@@ -102,3 +103,18 @@ def load_model(model, calc_imapindx=False):
     if calc_imapindx:
         _dict['imapindx'] = imapindx
     return _dict
+
+def load_index_offset():
+    """
+    Load the (i,j,k) index offset values which are
+    used to define the search volume for the near-neighbor flux
+    search. Consult doc/derive_index_offset.ipynb for derivation algorithm.
+    """
+    traversable = _RESOURCES.joinpath('index_offset.json')
+    with as_file(traversable) as _path:
+        with open(_path) as f:
+            index_offset = json.load(f)
+    index_offset['ioffset3'] = np.array(index_offset['ioffset3'], dtype=int)
+    index_offset['joffset3'] = np.array(index_offset['joffset3'], dtype=int)
+    index_offset['koffset3'] = np.array(index_offset['koffset3'], dtype=int)
+    return index_offset
