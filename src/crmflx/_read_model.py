@@ -118,3 +118,14 @@ def load_index_offset():
     index_offset['joffset3'] = np.array(index_offset['joffset3'], dtype=int)
     index_offset['koffset3'] = np.array(index_offset['koffset3'], dtype=int)
     return index_offset
+
+def load_solar_wind_parameters():
+    """
+    Load the solar wind parameters used as inputs for the bow shock
+    and magnetopause boundary models for this value of kp.
+    """
+    traversable = _RESOURCES.joinpath('solar_wind_parameters.json')
+    with as_file(traversable) as _path:
+        with open(_path) as f:
+            sw_params = json.load(f)
+    return sw_params
