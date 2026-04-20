@@ -34,3 +34,8 @@ def test_index_offset(index_offset):
     assert len(ioffset3) == nsphvol3
     assert len(joffset3) == nsphvol3
     assert len(koffset3) == nsphvol3
+
+def test_solar_wind_parameters(solar_wind_parameters):
+    
+    assert len(solar_wind_parameters) == 28
+    assert isinstance(solar_wind_parameters, dict)

@@ -1,5 +1,5 @@
 import pytest
-from src.crmflx._read_model import load_index_offset, load_model
+from src.crmflx._read_model import load_index_offset, load_model, load_solar_wind_parameters
 
 @pytest.fixture
 def solwin_model():
@@ -16,3 +16,7 @@ def msph_model():
 @pytest.fixture
 def index_offset():
     return load_index_offset()
+
+@pytest.fixture
+def solar_wind_parameters():
+    return load_solar_wind_parameters()
