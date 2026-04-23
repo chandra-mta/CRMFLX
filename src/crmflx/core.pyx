@@ -195,3 +195,246 @@ def locate(xn_pd: cython.double, vel: cython.double, xgsm: cython.double, ygsm: 
 
     return xmgnp, ymgnp, zmgnp, dist, xid
 
+def bowshk2(bx: cython.double,
+            by: cython.double,
+            bz: cython.double,
+            vx: cython.double,
+            vy: cython.double,
+            vz: cython.double,
+            dennum: cython.double,
+            swetemp: cython.double,
+            swptemp: cython.double,
+            hefrac: cython.double,
+            swhtemp: cython.double,
+            xpos: cython.double,
+            bowang: cython.double):
+    """
+    this routine is designed to give the bow shock radius, at a
+    given x, of the bow shock for any solar wind conditions.
+    
+    references:
+    this routine is adpated from the paper by l. bennet et.al.,
+    "a model of the earth's distant bow shock."  this paper was
+    to be published in the journal of geophysical research, 1997.
+    https://ui.adsabs.harvard.edu/abs/1997JGR...10226927B
+    their source code was obtained from their web site at:
+    http://www.igpp.ucla.edu/galileo/newmodel.htm
+    
+    this routine has been optimized for the simulation.
+    
+    inputs  bx      --- the imf b_x [nt]
+            by      --- the imf b_y [nt]
+            bz      --- the imf b_z [nt]
+            vx      --- the imf v_x [km/s]
+            vy      --- the imf v_y [km/s]
+            vz      --- the imf v_z [km/s]
+            dennum  --- the solar wind proton number density [#/cm^3]
+            swetemp --- the solar wind electron temperature [k]
+            swptemp --- the solar wind proton temperature [k]
+            hefrac  --- fraction of solar wind ions which are helium ions
+            swhtemp --- the temperature of the helium [k]
+            xpos    --- down tail distance cross section is calculated [re]
+            bowang  --- angle bow shock radius calculated (rad).
+    
+    output: bowrad  --- updated cylindrical radius (re).
+    """
+    rho2: cython.double
+#
+#--- convert the temperature from kelvins to ev
+#
+    etemp: cython.double  = swetemp / 11600.
+    ptemp: cython.double  = swptemp / 11600.
+    hetemp: cython.double = swhtemp / 11600.
+    dpr: cython.double    = 6.2832  / 360.0
+    pi: cython.double     = 4.0 * math.atan(1.0)
+#
+#--- parameters that specify the shape of the base model
+#--- of the bow shock.  the model has the form
+#--- rho**2 = a*x**2 -b*x + c.
+#---
+#--- the parameters are for the greenstadt etal. 1990 model
+#--- (grl, vol 17, p 753, 1990)
+#
+    xl: cython.double = 22.073117134
+    x0: cython.double =  3.493725046
+    xn: cython.double = 14.422071657
+#
+#--- here the eccentricity of the base model is adjusted.  see 
+#--- the paper for an explanation
+#
+    eps: cython.double = 1.0040
+#
+#--- calculate new paramaters for cylindrical shock model after
+#--- adjustment of eccentricity.
+#
+#--- calculate parameters of interest
+#
+    btotcgs: cython.double = math.sqrt(bx * bx + by * by + bz * bz) * 1.e-5    #--- btot in cgs units
+    vtot: cython.double    = math.sqrt(vx * vx + vy * vy + vz * vz) * 1.e+5    #--- vtot in cm/sec
+    vtot1: cython.double   = math.sqrt(vx * vx + vy * vy + vz * vz)            #--- vtot in km/sec
+#
+#--- the following definitions of v_a and c_s are taken from
+#--- slavin & holzer jgr dec 1981
+#
+    v_a: cython.double = btotcgs / math.sqrt(4.0 * pi * dennum * 1.67e-24 * (1.0 + hefrac * 4.0)) 
+    pres1: cython.double = dennum * ((1.0 + hefrac * 2.0) * etemp + (1 + hefrac * hetemp) * ptemp) * 1.602e-12
+    c_s: cython.double   = math.sqrt(2.0 * pres1 / (dennum * 1.67e-24 * (1.0 + hefrac * 4.0)))
+#
+#--- calculate mach numbers
+#
+#--- m_f is the fast magnetosonic speed for theta_bn = 90 degrees
+#
+    m_f: cython.double = vtot / math.sqrt(v_a * v_a + c_s * c_s)
+#
+#--- this is the modification for the change in the bow shock due
+#--- to changing solar wind dynamic pressure
+#
+#--- average values of number density and solar wind velocity
+#
+    xnave: cython.double =  7.0
+    vave: cython.double = 430.0
+#
+#--- fracpres is the fraction by which all length scales in the
+#--- bow shock model will change due to the change in the sola
+#--- wind dynamic pressure
+#
+    fracpres: cython.double = ((xnave * vave * vave) / (dennum * vtot1 * vtot1))**(1.0/6.0)
+
+    xn1: cython.double = xn * fracpres
+    x0: cython.double  = x0 * fracpres
+    xl: cython.double  = xl * fracpres
+#
+#--- calculate yet again the parameters for the updated model
+#
+    a: cython.double = eps * eps -1
+    b: cython.double = 2.0 * eps * xl + 2.0 *( eps * eps -1) * x0
+    c: cython.double = xl * xl + 2.0 * eps * xl * x0 + (eps * eps -1) * x0 * x0
+#
+#--- calculate shock with correct pressure
+#
+    xtemp: cython.double = a * xpos**2 - b * xpos + c
+    if xtemp < 0:
+        rho2 = 0
+    else:
+        rho2 = math.sqrt(xtemp)
+#
+#--- modify the bow shock for the change in flaring due to the
+#--- change in local magnetosonic mach number
+#
+#--- first calculate the flaring angle for average solar wind conditions
+#
+    ave_ma: cython.double   = 9.4
+    ave_ms: cython.double   = 7.2
+    vwin_ave: cython.double = 430.0*1.e+5
+    va_ave: cython.double   = vwin_ave / ave_ma
+    vs_ave: cython.double   = vwin_ave / ave_ms
+
+    vms: cython.double      = math.sqrt(0.5 * ((va_ave**2 + vs_ave**2) \
+                + math.sqrt((va_ave**2  + vs_ave**2)**2 \
+                - 4.0 * va_ave**2 * vs_ave**2 *(math.cos(45 * dpr)**2))))
+
+    ave_mf: cython.double   = vwin_ave / vms
+    thet2: cython.double    = math.asin(1.0 / ave_mf)
+#
+#--- now calculate the cylindrical radius, and the y and z coordinates,
+#--- of the shock for the angle bowang around the tail axis for a given
+#--- xpos.  note that bowang is 0 along the positive z axis
+#--- (bowang/dpr is the angle about the tail axis in degrees,
+#--- rhox is the updated cylindrical radius of the prevailing bow
+#--- shock at downtail distance xpos in earth radii.
+#
+    vms      = fast(bx,by,bz,v_a,c_s,vtot,bowang)
+    m_f: cython.double      = vtot / vms
+    thet1: cython.double    = math.asin(1.0 / m_f)
+    xtemp1: cython.double   = xn1 - xpos
+    rhox: cython.double     = rho2 + xtemp1 * (math.tan(thet1) - math.tan(thet2))
+    bowrad: cython.double   = rhox
+
+    return bowrad
+
+def fast(bx: cython.double,
+         by: cython.double,
+         bz: cython.double,
+         va: cython.double,
+         vs: cython.double,
+         v0: cython.double,
+         alp: cython.double):
+    """
+    local fast magnetosonic speed
+
+    it uses the simple bisection method to solve the equations.
+    accuracy to 0.01 in v_ms is good enough 
+    
+        this routine is adapted from the paper by l. bennet et.al.,
+        "a model of the earth's distant bow shock."  this paper was
+        to be published in the journal of geophysical research, 1997.
+        this source code is from their web site at:
+        http://www.igpp.ucla.edu/galileo/newmodel.htm
+    """
+    btot: cython.double = math.sqrt(bx * bx + by * by + bz * bz) #: Total interplanetary magnetic field strength.
+    vx: cython.double   = 1
+    va1: cython.double  = va / 1.0e5
+    vs1: cython.double  = vs / 1.0e5
+    v01: cython.double  = v0 / 1.0e5
+
+    func: cython.double = fast_func(bx, by, bz, alp, btot, vx, va1, vs1, v01)
+
+
+    step1: cython.double = 2.0
+    step2: cython.double = 0.1
+    step3: cython.double = 0.01
+    
+    #: Step size and sign is the same regardless of sign of initial
+    if func > 0:
+        while True:
+            vx += step1
+            func = fast_func(bx, by, bz, alp, btot, vx, va1, vs1, v01)
+            if func <= 0:
+                break
+
+        while True:
+            vx -= step2
+            func = fast_func(bx, by, bz, alp, btot, vx, va1, vs1, v01)
+            if func >= 0:
+                break
+
+        while True:
+            vx += step3
+            func = fast_func(bx, by, bz, alp, btot, vx, va1, vs1, v01)
+            if func <= 0:
+                break
+
+    elif func < 0:
+        while True:
+            vx += step1
+            func = fast_func(bx, by, bz, alp, btot, vx, va1, vs1, v01)
+            if func >= 0:
+                break
+
+        while True:
+            vx -= step2
+            func = fast_func(bx, by, bz, alp, btot, vx, va1, vs1, v01)
+            if func <= 0:
+                break
+
+        while True:
+            vx += step3
+            func = fast_func(bx, by, bz, alp, btot, vx, va1, vs1, v01)
+            if func >= 0:
+                break
+
+    vy    = math.sin(alp) * math.sqrt(v01 * vx - vx**2)
+    vz    = math.cos(alp) * math.sqrt(v01 * vx - vx**2)
+    vms   = 1.0e5 * math.sqrt(vx * vx + vy * vy + vz * vz)
+
+    return vms
+
+def fast_func( bx,  by,  bz,  alp, btot,  vx,  va1,  vs1,  v01):
+
+    out  = va1**2 + vs1**2 - 2.0 * v01 * vx + math.sqrt((va1**2 + vs1**2)**2         \
+           - 4.0 *va1**2 * vs1**2 * (vx * bx + by * math.sin(alp) * math.sqrt(v01*vx \
+           - vx**2) + bz * math.cos(alp) * math.sqrt(v01*vx                          \
+           - vx**2))**2 / (btot**2 *v01 * vx))
+
+    return out
+
