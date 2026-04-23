@@ -1,3 +1,14 @@
+"""
+This module contains the core functions for the CRMFLX simulation, including:
+- rot8ang: rotates a 2D vector about a hinge point in the xy-plane
+- locate: defines the position of a point at the model magnetopause closest to a given point in space, and the distance between them
+- bowshk2: calculates the bow shock radius at a given x for any solar wind conditions
+- locreg: determines which phenomenological region the spacecraft is in (solar wind, magnetosheath, or magnetosphere) based on its coordinates)
+
+Note that convenient python conventions for code design will not always be followed in this modules
+as such practices do not always align with the most efficient Cython code design.
+"""
+
 import sys
 import os
 import math
