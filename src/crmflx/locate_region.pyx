@@ -3,22 +3,8 @@ this module determines which phenomenological region the spacecraft is in,
 as well as the geographical coordinates of the spacecraft in the geotail system.
 """
 from .bowshock cimport bowshk2
-
-cdef inline double y_interpolate(
-    double x1,
-    double y1,
-    double x2,
-    double y2,
-    double xin
-):
-    """
-    return y coordinate corresponding to xin along the line define by (x1, y1)/(x2, y2)
-    input:  (x1, y1)/(x2, y2)   --- coordinates of two points
-            xin                 --- x value to be estimated
-    output: yout                --- resulted y value
-    """
-    cdef double yout = y1 - (y1 - y2) *(x1 -xin) / (x1 - x2)
-    return yout
+from .numerical cimport y_interpolate, compute_rng, rot8ang
+from cython.cimports.libc.math import sqrt, sin, cos, tan, asin, atan
 
 cdef (double,
     double,
