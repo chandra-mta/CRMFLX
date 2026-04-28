@@ -228,3 +228,100 @@ cdef (double, double, double, double, int) locate(
     dist = compute_rng([xgsm, ygsm, zgsm], [xmgnp, ymgnp, zmgnp])
 
     return xmgnp, ymgnp, zmgnp, dist, xid
+
+cpdef (double, double, double, int) locreg(
+    double xkp,
+    double xgsm,
+    double ygsm,
+    double zgsm
+):
+    """
+    this routine determines which phenomenological region the
+    spacecraft is in.
+    
+    input:  xkp     --- kp index (real value between 0 & 9).
+            xgsm    --- satellite's x-coordinate (re).
+            ygsm    --- satellite's y-coordinate (re).
+            zgsm    --- satellite's z-coordinate (re).
+         
+    output: xtail   --- satellite's x-coordinate in geotail system (re).
+            ytail   --- satellite's y-coordinate in geotail system (re).
+            ztail   --- satellite's z-coordinate in geotail system (re).
+            idloc   --- phenomenogical region location identification flag:
+                        idloc = 1 if spacecraft is in solar wind
+                        idloc = 2 if spacecraft is in magnetosheath
+                        idloc = 3 if spacecraft is in magnetosphere
+    """
+#
+#--- set the region identification flag to "no region
+#
+    cdef int idloc = 0
+    cdef double bx
+    cdef double by
+    cdef double bz
+    cdef double vx
+    cdef double vy
+    cdef double vz
+    cdef double dennum
+    cdef double swetemp
+    cdef double swptemp
+    cdef double hefrac
+    cdef double swhtemp
+    cdef double bowang
+    cdef double dypres
+    cdef double abang
+    cdef double xhinge
+#
+#--- get the solar wind parameters used as inputs for the bow shock
+#--- and magnetopause boundary models for this value of kp
+#
+    [bx,by,bz,vx,vy,vz,dennum,swetemp,swptemp,hefrac,swhtemp,bowang,dypres,abang,xhinge] = solwind(xkp)
+#
+#--- transform the spacecraft's coordinates to a system aligned with the geotail
+#
+#--- rotate the bow shock by the aberration angle
+#
+    cdef double angrad = -abang * 0.01745329252
+    cdef double xtail
+    cdef double ytail
+    cdef double ztail
+    [xtail,ytail] = rot8ang(angrad,xgsm,ygsm,xhinge)
+    ztail         = zgsm
+#
+#--- determine if the spacecraft is inside the magnetosphere.  use the
+#--- tsyganenko magnetopause model
+#
+    cdef double vel = -1
+    cdef double xmgp
+    cdef double ymgp
+    cdef double zmgp
+    cdef double dist
+    cdef int xid
+    xmgp,ymgp,zmgp,dist,xid = locate(dypres,vel,xtail,ytail,ztail)
+#
+#--- the spacecraft is inside the magnetosphere
+#
+    if xid == 1:
+        idloc = 3
+#
+#--- determine if the spacecraft is in either the solar wind or
+#--- the magnetosheath.  calculate the bow shock radius at this point
+#
+    else:
+        cdef double radbs = bowshk2(bx,by,bz,vx,vy,vz,dennum,swetemp,swptemp,hefrac,swhtemp,xtail,bowang)
+#
+#--- find the distance of the spacecraft from the aberrated x-axi
+#
+        distsc = sqrt(ytail**2 + ztail**2)
+#
+#--- the spacecraft is in the magnetosheath
+#
+        if distsc <= radbs:
+            idloc = 2
+#
+#--- the spacecraft is in the solar wind
+#
+        else:
+            idloc = 1
+
+    return xtail, ytail, ztail, idloc
