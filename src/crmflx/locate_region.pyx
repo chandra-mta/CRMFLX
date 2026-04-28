@@ -89,7 +89,7 @@ cdef (double,
 
     return bx, by, bz, vx, vy, vz, dennum, swetemp, swptemp, hefrac, swhtemp, bowang, dypres, abang, xhinge
 
-def locate(
+cdef (double, double, double, double, int) locate(
     double xn_pd,
     double vel,
     double xgsm,
