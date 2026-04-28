@@ -1577,8 +1577,6 @@ struct __pyx_ctuple_8bbe9f__double__and_double__and_double__and_double__an__etc;
 typedef struct __pyx_ctuple_8bbe9f__double__and_double__and_double__and_double__an__etc __pyx_ctuple_8bbe9f__double__and_double__and_double__and_double__an__etc;
 struct __pyx_ctuple_double__and_double__and_double__and_double__and_int;
 typedef struct __pyx_ctuple_double__and_double__and_double__and_double__and_int __pyx_ctuple_double__and_double__and_double__and_double__and_int;
-struct __pyx_ctuple_double__and_double__and_double__and_int;
-typedef struct __pyx_ctuple_double__and_double__and_double__and_int __pyx_ctuple_double__and_double__and_double__and_int;
 
 /* "crmflx/locate_region.pyx":9
  * from cython.cimports.libc.math import sqrt, sin, cos, atan2
@@ -1618,20 +1616,6 @@ struct __pyx_ctuple_double__and_double__and_double__and_double__and_int {
   double f2;
   double f3;
   int f4;
-};
-
-/* "crmflx/locate_region.pyx":232
- *     return xmgnp, ymgnp, zmgnp, dist, xid
- * 
- * cpdef (double, double, double, int) locreg(             # <<<<<<<<<<<<<<
- *     double xkp,
- *     double xgsm,
-*/
-struct __pyx_ctuple_double__and_double__and_double__and_int {
-  double f0;
-  double f1;
-  double f2;
-  int f3;
 };
 /* #### Code section: utility_code_proto ### */
 
@@ -2253,9 +2237,6 @@ static PyObject* __pyx_convert__to_py___pyx_ctuple_double__and_double(__pyx_ctup
 #define __Pyx_HAS_GCC_DIAGNOSTIC
 #endif
 
-/* ToPyCTupleUtility.proto */
-static PyObject* __pyx_convert__to_py___pyx_ctuple_double__and_double__and_double__and_int(__pyx_ctuple_double__and_double__and_double__and_int);
-
 /* PyObjectVectorCallKwBuilder.proto (used by CIntToPy) */
 CYTHON_UNUSED static int __Pyx_VectorcallBuilder_AddArg_Check(PyObject *key, PyObject *value, PyObject *builder, PyObject **args, int n);
 #if CYTHON_VECTORCALL
@@ -2403,7 +2384,7 @@ static __pyx_ctuple_double__and_double (*__pyx_f_6crmflx_9numerical_rot8ang)(dou
 /* Module declarations from "crmflx.locate_region" */
 static __pyx_ctuple_8bbe9f__double__and_double__and_double__and_double__an__etc __pyx_f_6crmflx_13locate_region_solwind(double); /*proto*/
 static __pyx_ctuple_double__and_double__and_double__and_double__and_int __pyx_f_6crmflx_13locate_region_locate(double, double, double, double, double); /*proto*/
-static __pyx_ctuple_double__and_double__and_double__and_int __pyx_f_6crmflx_13locate_region_locreg(double, double, double, double, int __pyx_skip_dispatch); /*proto*/
+static PyObject *__pyx_f_6crmflx_13locate_region_locreg(double, double, double, double, int __pyx_skip_dispatch); /*proto*/
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
 #define __Pyx_MODULE_NAME "crmflx.locate_region"
@@ -3490,7 +3471,7 @@ static __pyx_ctuple_double__and_double__and_double__and_double__and_int __pyx_f_
  * 
  *     return xmgnp, ymgnp, zmgnp, dist, xid             # <<<<<<<<<<<<<<
  * 
- * cpdef (double, double, double, int) locreg(
+ * cpdef object locreg(
 */
   __pyx_t_4.f0 = __pyx_v_xmgnp;
   __pyx_t_4.f1 = __pyx_v_ymgnp;
@@ -3519,7 +3500,7 @@ static __pyx_ctuple_double__and_double__and_double__and_double__and_int __pyx_f_
 /* "crmflx/locate_region.pyx":232
  *     return xmgnp, ymgnp, zmgnp, dist, xid
  * 
- * cpdef (double, double, double, int) locreg(             # <<<<<<<<<<<<<<
+ * cpdef object locreg(             # <<<<<<<<<<<<<<
  *     double xkp,
  *     double xgsm,
 */
@@ -3531,7 +3512,7 @@ PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static __pyx_ctuple_double__and_double__and_double__and_int __pyx_f_6crmflx_13locate_region_locreg(double __pyx_v_xkp, double __pyx_v_xgsm, double __pyx_v_ygsm, double __pyx_v_zgsm, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static PyObject *__pyx_f_6crmflx_13locate_region_locreg(double __pyx_v_xkp, double __pyx_v_xgsm, double __pyx_v_ygsm, double __pyx_v_zgsm, CYTHON_UNUSED int __pyx_skip_dispatch) {
   int __pyx_v_idloc;
   double __pyx_v_bx;
   double __pyx_v_by;
@@ -3560,7 +3541,7 @@ static __pyx_ctuple_double__and_double__and_double__and_int __pyx_f_6crmflx_13lo
   int __pyx_v_xid;
   double __pyx_v_radbs;
   double __pyx_v_distsc;
-  __pyx_ctuple_double__and_double__and_double__and_int __pyx_r;
+  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __pyx_ctuple_8bbe9f__double__and_double__and_double__and_double__an__etc __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
@@ -3600,7 +3581,6 @@ static __pyx_ctuple_double__and_double__and_double__and_int __pyx_f_6crmflx_13lo
   __pyx_ctuple_double__and_double__and_double__and_double__and_int __pyx_t_36;
   int __pyx_t_37;
   int __pyx_t_38;
-  __pyx_ctuple_double__and_double__and_double__and_int __pyx_t_39;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4003,17 +3983,37 @@ static __pyx_ctuple_double__and_double__and_double__and_int __pyx_f_6crmflx_13lo
  * 
  *     return xtail, ytail, ztail, idloc             # <<<<<<<<<<<<<<
 */
-  __pyx_t_39.f0 = __pyx_v_xtail;
-  __pyx_t_39.f1 = __pyx_v_ytail;
-  __pyx_t_39.f2 = __pyx_v_ztail;
-  __pyx_t_39.f3 = __pyx_v_idloc;
-  __pyx_r = __pyx_t_39;
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_xtail); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 329, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_16 = PyFloat_FromDouble(__pyx_v_ytail); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 329, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_16);
+  __pyx_t_17 = PyFloat_FromDouble(__pyx_v_ztail); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 329, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_17);
+  __pyx_t_15 = __Pyx_PyLong_From_int(__pyx_v_idloc); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 329, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_15);
+  __pyx_t_14 = PyTuple_New(4); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 329, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_14);
+  __Pyx_GIVEREF(__pyx_t_2);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_2) != (0)) __PYX_ERR(0, 329, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_16);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 1, __pyx_t_16) != (0)) __PYX_ERR(0, 329, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_17);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 2, __pyx_t_17) != (0)) __PYX_ERR(0, 329, __pyx_L1_error);
+  __Pyx_GIVEREF(__pyx_t_15);
+  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_14, 3, __pyx_t_15) != (0)) __PYX_ERR(0, 329, __pyx_L1_error);
+  __pyx_t_2 = 0;
+  __pyx_t_16 = 0;
+  __pyx_t_17 = 0;
+  __pyx_t_15 = 0;
+  __pyx_r = __pyx_t_14;
+  __pyx_t_14 = 0;
   goto __pyx_L0;
 
   /* "crmflx/locate_region.pyx":232
  *     return xmgnp, ymgnp, zmgnp, dist, xid
  * 
- * cpdef (double, double, double, int) locreg(             # <<<<<<<<<<<<<<
+ * cpdef object locreg(             # <<<<<<<<<<<<<<
  *     double xkp,
  *     double xgsm,
 */
@@ -4038,8 +4038,9 @@ static __pyx_ctuple_double__and_double__and_double__and_int __pyx_f_6crmflx_13lo
   __Pyx_XDECREF(__pyx_t_17);
   __Pyx_XDECREF(__pyx_t_18);
   __Pyx_AddTraceback("crmflx.locate_region.locreg", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_pretend_to_initialize(&__pyx_r);
+  __pyx_r = 0;
   __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -4157,23 +4158,21 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 static PyObject *__pyx_pf_6crmflx_13locate_region_locreg(CYTHON_UNUSED PyObject *__pyx_self, double __pyx_v_xkp, double __pyx_v_xgsm, double __pyx_v_ygsm, double __pyx_v_zgsm) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_double__and_double__and_double__and_int __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("locreg", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6crmflx_13locate_region_locreg(__pyx_v_xkp, __pyx_v_xgsm, __pyx_v_ygsm, __pyx_v_zgsm, 1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 232, __pyx_L1_error)
-  __pyx_t_2 = __pyx_convert__to_py___pyx_ctuple_double__and_double__and_double__and_int(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_r = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __pyx_t_1 = __pyx_f_6crmflx_13locate_region_locreg(__pyx_v_xkp, __pyx_v_xgsm, __pyx_v_ygsm, __pyx_v_zgsm, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("crmflx.locate_region.locreg", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -4581,7 +4580,7 @@ __Pyx_RefNannySetupContext("PyInit_locate_region", 0);
   /* "crmflx/locate_region.pyx":232
  *     return xmgnp, ymgnp, zmgnp, dist, xid
  * 
- * cpdef (double, double, double, int) locreg(             # <<<<<<<<<<<<<<
+ * cpdef object locreg(             # <<<<<<<<<<<<<<
  *     double xkp,
  *     double xgsm,
 */
@@ -8195,38 +8194,6 @@ static PyObject* __pyx_convert__to_py___pyx_ctuple_double__and_double(__pyx_ctup
 bad:
     Py_XDECREF(result);
     for (Py_ssize_t i=1; i >= 0; --i) {
-        Py_XDECREF(items[i]);
-    }
-    return NULL;
-}
-
-/* ToPyCTupleUtility */
-static PyObject* __pyx_convert__to_py___pyx_ctuple_double__and_double__and_double__and_int(__pyx_ctuple_double__and_double__and_double__and_int value) {
-    PyObject* items[4] = { 0, 0, 0, 0 };
-    PyObject* result = NULL;
-        items[0] = PyFloat_FromDouble(value.f0);
-        if (unlikely(!items[0])) goto bad;
-        items[1] = PyFloat_FromDouble(value.f1);
-        if (unlikely(!items[1])) goto bad;
-        items[2] = PyFloat_FromDouble(value.f2);
-        if (unlikely(!items[2])) goto bad;
-        items[3] = __Pyx_PyLong_From_int(value.f3);
-        if (unlikely(!items[3])) goto bad;
-    result = PyTuple_New(4);
-    if (unlikely(!result)) goto bad;
-    for (Py_ssize_t i=0; i<4; ++i) {
-        PyObject *item = items[i];
-        items[i] = NULL;
-        #if !CYTHON_ASSUME_SAFE_MACROS
-        if (unlikely(PyTuple_SetItem(result, i, item) < 0)) goto bad;
-        #else
-        PyTuple_SET_ITEM(result, i, item);
-        #endif
-    }
-    return result;
-bad:
-    Py_XDECREF(result);
-    for (Py_ssize_t i=3; i >= 0; --i) {
         Py_XDECREF(items[i]);
     }
     return NULL;

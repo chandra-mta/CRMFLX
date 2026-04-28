@@ -229,7 +229,7 @@ cdef (double, double, double, double, int) locate(
 
     return xmgnp, ymgnp, zmgnp, dist, xid
 
-cpdef (double, double, double, int) locreg(
+cpdef object locreg(
     double xkp,
     double xgsm,
     double ygsm,
