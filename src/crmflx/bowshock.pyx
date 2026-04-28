@@ -131,7 +131,7 @@ cdef double fast(
 
     return vms
 
-cpdef double bowshk2(
+cdef double bowshk2_c(
     double bx,
     double by,
     double bz,
@@ -285,3 +285,23 @@ cpdef double bowshk2(
     cdef double thet1 = asin(1.0 / m_f)
     cdef double bowrad = rho2 + (xn1 - xpos) * (tan(thet1) - tan(thet2)) #: rhox
     return bowrad
+
+cpdef double bowshk2(
+    double bx,
+    double by,
+    double bz,
+    double vx,
+    double vy,
+    double vz,
+    double dennum,
+    double swetemp,
+    double swptemp,
+    double hefrac,
+    double swhtemp,
+    double xpos,
+    double bowang
+):
+    """
+    wrapper for bowshk2_c to be used in python.
+    """
+    return bowshk2_c(bx, by, bz, vx, vy, vz, dennum, swetemp, swptemp, hefrac, swhtemp, xpos, bowang)

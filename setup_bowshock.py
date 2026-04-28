@@ -3,7 +3,7 @@ This script is used to build the bowshock module separately from the main CRMFLX
 https://cython.readthedocs.io/en/latest/src/tutorial/external.html#id5
 
 As part of the compilation process, run with the setuptool conventsion rather than the build library conventions.
-    >>> python setup_bowshock.py build_ext --inplace
+    >>> python setup_bowshock.py build_ext
 """
 from setuptools import Extension, setup
 from pathlib import Path
