@@ -225,7 +225,7 @@ cdef (double, double, double, double, int) locate(
 #
 #--- calculate the eudclidean distance between the point xgsm,ygsm,zgsm and the magnetopause
 #
-    dist = compute_rng([xgsm, ygsm, zgsm], [xmgnp, ymgnp, zmgnp])
+    dist = compute_rng(xgsm, ygsm, zgsm, xmgnp, ymgnp, zmgnp)
 
     return xmgnp, ymgnp, zmgnp, dist, xid
 
