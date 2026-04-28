@@ -301,6 +301,8 @@ cpdef (double, double, double, int) locreg(
 #
 #--- the spacecraft is inside the magnetosphere
 #
+    cdef double radbs
+    cdef double distsc
     if xid == 1:
         idloc = 3
 #
@@ -308,9 +310,9 @@ cpdef (double, double, double, int) locreg(
 #--- the magnetosheath.  calculate the bow shock radius at this point
 #
     else:
-        cdef double radbs = bowshk2(bx,by,bz,vx,vy,vz,dennum,swetemp,swptemp,hefrac,swhtemp,xtail,bowang)
+        radbs = bowshk2(bx,by,bz,vx,vy,vz,dennum,swetemp,swptemp,hefrac,swhtemp,xtail,bowang)
 #
-#--- find the distance of the spacecraft from the aberrated x-axi
+#--- find the distance of the spacecraft from the aberrated x-axis
 #
         distsc = sqrt(ytail**2 + ztail**2)
 #
