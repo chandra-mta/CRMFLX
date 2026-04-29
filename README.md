@@ -15,3 +15,12 @@ This means that portions of this library use Cython to define pure C functions (
 We then also include Cython `.pxd` files (which are similar to C header files) for Cython declarations of the `cpdef` defined functions. This is what allows other Cython modules (`.pyx`) to make use of the internal C functionality (with `cminport`) and circumvent expensive Python entry points.
 
 While this defines a sum total of three functions (Python bowshk2, C bowshk2, and C bowshk2_c), this pattern exists to more tightly control data types allowed by the Cython syntax. This also defines a boundary of public API Python functions callable by the interpreter, and private ABI C functions for reuse across the library as a whole. Future implementations and developments should carefully make the distinction of which functions actually need the python overhead and reduce unnecessary exposure of the C kernel internals wherever possible.
+
+### Ctuples and Type Memoryview:
+- https://cython.readthedocs.io/en/latest/src/userguide/language_basics.html
+- https://cython.readthedocs.io/en/latest/src/userguide/memoryviews.html
+- https://cython.readthedocs.io/en/latest/src/userguide/numpy_tutorial.html#numpy-tutorial
+
+Some of the internal C functions make use of the Cython `ctuple` abstraction for return types of certain `cdef` functions (eg. solwind) because these allow for a convenient C source code generation of C struct which mimics the Python tuple. This convention is used for intermediary C fuctions which record intermediary variables used in our calculations. Other internal C functions make use of C pointer outputs (e.g. locreg) and typed memoryview in order to efficiently write to numpy arrays.
+
+Use ctuple for small, internal helper functions. Use pointer outputs for multi-output numerical kernels, especially if they interact with arrays or C code.

@@ -2300,10 +2300,10 @@ static int __Pyx_State_RemoveModule(void*);
 /* Module declarations from "libc.math" */
 
 /* Module declarations from "crmflx.bowshock" */
-static double __pyx_f_6crmflx_8bowshock_bowshk2_c(double, double, double, double, double, double, double, double, double, double, double, double, double); /*proto*/
 static double __pyx_f_6crmflx_8bowshock_bowshk2(double, double, double, double, double, double, double, double, double, double, double, double, double, int __pyx_skip_dispatch); /*proto*/
 static CYTHON_INLINE double __pyx_f_6crmflx_8bowshock_fast_func(double, double, double, double, double, double, double, double, double); /*proto*/
 static double __pyx_f_6crmflx_8bowshock_fast(double, double, double, double, double, double, double); /*proto*/
+static double __pyx_f_6crmflx_8bowshock_bowshk2_c(double, double, double, double, double, double, double, double, double, double, double, double, double); /*proto*/
 /* #### Code section: typeinfo ### */
 /* #### Code section: before_global_var ### */
 #define __Pyx_MODULE_NAME "crmflx.bowshock"
@@ -4010,8 +4010,8 @@ static int __Pyx_modinit_function_export_code(__pyx_mstatetype *__pyx_mstate) {
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (unlikely(!__pyx_export_signature)) __PYX_ERR(0, 1, __pyx_L1_error)
     #endif
-    const char * __pyx_export_name = __pyx_export_signature + 249;
-    void (*const __pyx_export_pointers[])(void) = {(void (*)(void))&__pyx_f_6crmflx_8bowshock_bowshk2_c, (void (*)(void))&__pyx_f_6crmflx_8bowshock_bowshk2, (void (*)(void)) NULL};
+    const char * __pyx_export_name = __pyx_export_signature + 137;
+    void (*const __pyx_export_pointers[])(void) = {(void (*)(void))&__pyx_f_6crmflx_8bowshock_bowshk2, (void (*)(void)) NULL};
     void (*const *__pyx_export_pointer)(void) = __pyx_export_pointers;
     const char *__pyx_export_current_signature = __pyx_export_signature;
     while (*__pyx_export_pointer) {
@@ -4418,25 +4418,25 @@ static int __Pyx_InitCachedConstants(__pyx_mstatetype *__pyx_mstate) {
 static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   {
-    const struct { const unsigned int length: 9; } index[] = {{1},{23},{20},{18},{6},{7},{2},{2},{2},{18},{15},{6},{8},{6},{13},{5},{8},{10},{8},{3},{12},{12},{12},{10},{7},{7},{7},{8},{6},{2},{2},{2},{4},{266},{42}};
-    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (354 bytes) */
-const char* const cstring = "BZh91AY&SY7\027n\276\000\000)\177\376\302\004\004\000De\220 \244\001Ta\277\357\377\360\000@@@@@@@@@@\000@\0000\001\rL\304\021=H\310\321\372\243\322\006@\320\006\206\201\232jd\032*fF\2152L\324\332\232\032\000\000\000\0004$452b\003\3242\000\000hz\215\000\354\273)h\0007\312\232\233\264(A\000\033P8\230\010\017\336\375T\212\026\245`\325\014KD\216\177i\256\0206\305*\210\031\201\\\375\016\272\034\256\370\021#\322\310\036`\202\024Y\201\001\260\334:\337\251\257\215p\323\021Ep\000G\004\325\024\363\263\036\2661)Yd^\345\223\216\035\367\344\201f\230d\000.@\300&X@\213\031[k\254\334\364\240)\021\262\n]\2200\034\360\332E\220]Nk\363H(\212\363\363I\361\372\010\304\272\000\"\270\251\020\363\204\215EHk\000\304'T\013\251\362\205i|\330\037S\001\320\001\023\004\340\257&:\026\334H\025\341\204Sr\265N\026\024\272`\215R\2204wH\222\200\327O3\"A\244\335$\265\003\177\313`\021Z|\214r\004S6\3540\021\220P\200\006i\223\205\2168\036\\ci\274\327;\365\212\"\"\242\331c\360\3170\177\027rE8P\2207\027n\276";
-    PyObject *data = __Pyx_DecompressString(cstring, 354, 2);
+    const struct { const unsigned int length: 8; } index[] = {{1},{23},{20},{18},{6},{7},{2},{2},{2},{18},{15},{6},{8},{6},{13},{5},{8},{10},{8},{3},{12},{12},{12},{10},{7},{7},{7},{8},{6},{2},{2},{2},{4},{144},{42}};
+    #if (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (348 bytes) */
+const char* const cstring = "BZh91AY&SY\267\235%\377\000\000\032\177\376\302\004\004\000De\220 \244\001Ta\277\357\377\360\000@@@@@@@@@@\000@\0000\001\rmX\202)\3521\036\231M=@i\240\036\241\3524\3203D\3105S\310\323\023\021\251\351\250=C \000\000z\200\006\211\251\222m#\324d6\243@\000\000\r4\310\"\3304\000^ASS\367P\241\001\271M@\200\375\235\306i\201\353\254\036aI\326\266c\260\315\200\006\350\234\204\014\300\357'S\357-\t\345\352SZ\264h\\*a\200\303i\320;G\356\226\027\306\322\222N\000\021\216\255\356wi6H\252XYO\300\345b\"\343\213T'B\347\224\000b\254De\030\364\307\326\311X\004\205,\026+\216 \240F\241e8\007\2627\314\326\007%\346k>\031\300\202\214\300\212\352ZQ\350\nj\0261\2360'\022#!\312\262\261\n\2467\007\314\340r\202'\013\204'\231\016]8\314!d\242\253\220KB\302WT\210J\200!\2430\235\302\227\265\224\034\304\230\217\235S\003}r\002%=\256\274\261\r\253x B0\"\010\003\364\\\327\366\245\305\002^/\313\202\232\252\256\323\021\021Qt\254\361\223\314?\305\334\221N\024$-\347I\177\300";
+    PyObject *data = __Pyx_DecompressString(cstring, 348, 2);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (295 bytes) */
-const char* const cstring = "x\332\275\221\261N\3030\020\206\263\2601\346\00120P\251J%6&T\211\031U(CYzr\234\013\261\342\330&g\247N\237\200\261c\307\216\035\031\031\031\031\373(<\002\016iy\003\360p\377/\337\335w'\373\216Z>\343mSJ?\313\365\232*\315\353\324\364\036`\021\302\242\277\027\334\302\003z\373\210%\243^q\241S\256[\355\254PH\241\203\251\347\237\276\372&\367y\237o\270\014\t\020\nl\3138\346\214\327#==\323\013T\3125\000\245S\034\240\3022\324\201 \370\245\n\213\r\0014,@\302it\341$\016N\261&\250\321&\204\260\034gF\014\327/\216\3111\005@hOe\301\025ae'-\2551\020\r\255\253Q\314 \000\026\311\002tL:\244\316w}\267\361FS\241].1\271\036u\232\374\255N\242\377\2357M\204\262\311\370|T\013\003\205 \303,\257&\321\351\023\201\237\3351\212\267\363\257\253\350\342\362\365v;\337f\273x\227\355\343}v\210\017\313\267\247w\361\341?\373\343ru\\\30170\376\336q";
-    PyObject *data = __Pyx_DecompressString(cstring, 295, 1);
+    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (284 bytes) */
+const char* const cstring = "x\332\265\220\261N\3030\020@\273\2601\346\00320\200\204R\211\215\tUbF\025\312P\226\236\034\347B\2548\266\311\331\211\323/`\314\330\261cGFFF\306|\n\237\200C\n\177\200\207{'\337\335\323\331w\324\360%o\352B\372e\246;*5\257\022\323{\200u\010\353\376^p\013\017\350\355#\026\214z\305\205N\270n\264\263B!\205\t\246\236\177\346\252\233\314g}\266\3432\024@(\260\r\343\2301^\315\366\344\327\236\243R\256\006(\234\342\000%\026\241\017\004\301\237UX\254\t\240fA\022N\255s'q\312\024\253\003\2156!\204\34583b\272~qL\316%\000B{j\013Y\036Vv\322R\207\301h\250+g\230\t\000\026\311\002\264L:\244\326\267}\273\363FS\256]&1\276\234y\035\3777\205\262\361\374\034\252\204\201\\\220a\226\227W\213\323\247\216\213hX}],\316\316_o\207\325\220\356\243}z\210\016\3511:n\336\236\336\305\207\377\354\307\315v\334\3027A\256\2644";
+    PyObject *data = __Pyx_DecompressString(cstring, 284, 1);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #else /* compression: none (580 bytes) */
-const char* const bytes = "?src/crmflx/bowshock.pyx__Pyx_PyDict_NextRefasyncio.coroutinesbowangbowshk2bxbybzcline_in_tracebackcrmflx.bowshockdennum__func__hefrac_is_coroutineitems__main____module____name__pop__pyx_capi____qualname____set_name__setdefaultswetempswhtempswptemp__test__valuesvxvyvzxposdouble (double, double, double, double, double, double, double, double, double, double, double, double, double)\000double (double, double, double, double, double, double, double, double, double, double, double, double, double, int __pyx_skip_dispatch)\000bowshk2_c\000bowshk2\320\000\024\220A\360$\000\005\014\2109\220A\220T\230\024\230T\240\024\240T\250\024\250X\260Y\270i\300x\310y\320X^\320^_";
+    #else /* compression: none (458 bytes) */
+const char* const bytes = "?src/crmflx/bowshock.pyx__Pyx_PyDict_NextRefasyncio.coroutinesbowangbowshk2bxbybzcline_in_tracebackcrmflx.bowshockdennum__func__hefrac_is_coroutineitems__main____module____name__pop__pyx_capi____qualname____set_name__setdefaultswetempswhtempswptemp__test__valuesvxvyvzxposdouble (double, double, double, double, double, double, double, double, double, double, double, double, double, int __pyx_skip_dispatch)\000bowshk2\320\000\024\220A\360$\000\005\014\2109\220A\220T\230\024\230T\240\024\240T\250\024\250X\260Y\270i\300x\310y\320X^\320^_";
     PyObject *data = NULL;
     CYTHON_UNUSED_VAR(__Pyx_DecompressString);
     #endif
