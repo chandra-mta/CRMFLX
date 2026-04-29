@@ -229,11 +229,15 @@ cdef (double, double, double, double, int) locate(
 
     return xmgnp, ymgnp, zmgnp, dist, xid
 
-cpdef object locreg(
+cdef void locreg_c(
     double xkp,
     double xgsm,
     double ygsm,
-    double zgsm
+    double zgsm,
+    double* xtail,
+    double* ytail,
+    double* ztail,
+    int* idloc
 ):
     """
     this routine determines which phenomenological region the
@@ -251,11 +255,24 @@ cpdef object locreg(
                         idloc = 1 if spacecraft is in solar wind
                         idloc = 2 if spacecraft is in magnetosheath
                         idloc = 3 if spacecraft is in magnetosphere
+
+    Pure C-level implementation, therefore use no Python objects.
+    Callable from C, cython, and parallel loops.
+    Therefore usage of locreg_c in later cython C functions will quickly calculate
+    and write output to numpy memoryview arrays.
+    
+    The end of this function thus writes the internal function variables xt,yt,zt,iloc
+    to the provided C memory addresses using Cython conventions xtail[0] = xt.
+    Note that this does not mean writing first element of an array xtail. This means first memory address xtail points to.
     """
 #
 #--- set the region identification flag to "no region
 #
-    cdef int idloc = 0
+    cdef int iloc = 0
+    cdef double xt
+    cdef double yt
+    cdef double zt
+
     cdef double bx
     cdef double by
     cdef double bz
@@ -282,11 +299,8 @@ cpdef object locreg(
 #--- rotate the bow shock by the aberration angle
 #
     cdef double angrad = -abang * 0.01745329252
-    cdef double xtail
-    cdef double ytail
-    cdef double ztail
-    [xtail,ytail] = rot8ang(angrad,xgsm,ygsm,xhinge)
-    ztail         = zgsm
+    [xt,yt] = rot8ang(angrad,xgsm,ygsm,xhinge)
+    zt         = zgsm
 #
 #--- determine if the spacecraft is inside the magnetosphere.  use the
 #--- tsyganenko magnetopause model
@@ -297,33 +311,51 @@ cpdef object locreg(
     cdef double zmgp
     cdef double dist
     cdef int xid
-    xmgp,ymgp,zmgp,dist,xid = locate(dypres,vel,xtail,ytail,ztail)
+    xmgp,ymgp,zmgp,dist,xid = locate(dypres,vel,xt,yt,zt)
 #
 #--- the spacecraft is inside the magnetosphere
 #
     cdef double radbs
     cdef double distsc
     if xid == 1:
-        idloc = 3
+        iloc = 3
 #
 #--- determine if the spacecraft is in either the solar wind or
 #--- the magnetosheath.  calculate the bow shock radius at this point
 #
     else:
-        radbs = bowshk2(bx,by,bz,vx,vy,vz,dennum,swetemp,swptemp,hefrac,swhtemp,xtail,bowang)
+        radbs = bowshk2(bx,by,bz,vx,vy,vz,dennum,swetemp,swptemp,hefrac,swhtemp,xt,bowang)
 #
 #--- find the distance of the spacecraft from the aberrated x-axis
 #
-        distsc = sqrt(ytail**2 + ztail**2)
+        distsc = sqrt(yt**2 + zt**2)
 #
 #--- the spacecraft is in the magnetosheath
 #
         if distsc <= radbs:
-            idloc = 2
+            iloc = 2
 #
 #--- the spacecraft is in the solar wind
 #
         else:
-            idloc = 1
+            iloc = 1
+    #: Write the output variables to the provided memory addresses.
+    xtail[0] = xt
+    ytail[0] = yt
+    ztail[0] = zt
+    idloc[0] = iloc
 
-    return xtail, ytail, ztail, idloc
+cpdef (double, double, double, int) locreg(
+    double xkp,
+    double xgsm,
+    double ygsm,
+    double zgsm
+):
+    cdef double xt
+    cdef double yt
+    cdef double zt
+    cdef int iloc
+
+    locreg_c(xkp, xgsm, ygsm, zgsm, &xt, &yt, &zt, &iloc)
+
+    return xt, yt, zt, iloc
