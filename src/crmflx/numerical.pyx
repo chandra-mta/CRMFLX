@@ -58,9 +58,9 @@ cdef inline double lin(kp,a,b):
     """
     return a*kp + b
 
-cdef inline double exp_lin(kp,a,b):
+cdef inline double lin_exp(kp,a,b):
     """
-    Exponential calculation
+    Linear exponential calculation
     """
     return a*exp(b*kp)
 
