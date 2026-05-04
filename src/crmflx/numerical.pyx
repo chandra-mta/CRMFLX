@@ -1,7 +1,7 @@
 """
 Numerical operations shared by multiple modules.
 """
-from cython.cimports.libc.math import sqrt, cos, sin
+from cython.cimports.libc.math import sqrt, cos, sin, exp
 
 cdef inline double y_interpolate(
     double x1,
@@ -51,3 +51,27 @@ cdef (double, double) rot8ang(double ang, double x, double y, double xhinge):
         yrot2 = y
 
     return xrot2, yrot2
+
+cdef inline double lin(kp,a,b):
+    """
+    Linear calculation
+    """
+    return a*kp + b
+
+cdef inline double lin_exp(kp,a,b):
+    """
+    Linear exponential calculation
+    """
+    return a*exp(b*kp)
+
+cdef inline double mult_exp(kp,a,b):
+    """
+    Multiplicative exponential calculation
+    """
+    return exp(a)*(kp**b)
+
+cdef inline double cent(left,right):
+    """
+    Center of a range
+    """
+    return (left + right) / 2.0
