@@ -1,7 +1,7 @@
 """
 Numerical operations shared by multiple modules.
 """
-from cython.cimports.libc.math import sqrt, cos, sin, exp
+from cython.cimports.libc.math import sqrt, cos, sin, exp, floor, ceil
 
 cdef inline double y_interpolate(
     double x1,
@@ -75,3 +75,25 @@ cdef inline double cent(left,right):
     Center of a range
     """
     return (left + right) / 2.0
+
+cdef inline (double, double) zbinner(double xgsm, double zgsm):
+    """
+    Determine Z-layer bin of magnetosphere to find nearest neighbor flux.
+    """
+    cdef double zcklo
+    cdef double zckhi
+    if xgsm >= 0:
+        zcklo = -7.0
+        zckhi = 100.0
+    else:
+        if zgsm < -6.0:
+            zcklo = -7.0
+            zckhi = -6.0
+        elif zgsm > 10.0:
+            zcklo = 10.0
+            zckhi = 11.0
+        else:
+            #: Round to bins
+            zcklo = floor(zgsm)
+            zckhi = ceil(zgsm)
+    return zcklo, zckhi
